@@ -219,12 +219,6 @@ class SpectralMeetsSpatialModel(BaseModel):
             self.loss_metrics['l_couple'] = self.losses['couple_loss'](Cxy, Cxy_est) + \
                                          self.losses['couple_loss'](Cyx, Cyx_est)
 
-    def compute_geo_loss(self, data_x, data_y, Pxy, Pyx):
-        assert 'dist' in data_x and 'dist' in data_y, 'Geodesic distance is not pre-computed'
-        dist_x, dist_y = data_x['dist'], data_y['dist']
-
-        self.loss_metrics['l_geo'] = self.losses['geo_loss'](dist_x, dist_y, Pxy) + self.losses['geo_loss'](dist_y, dist_x, Pyx)
-
     def compute_pose_interpolation_loss(self, vert_x, vert_x_pred_arr, face_x):
         # vert_x_pred_arr [n_vert_x, 3, T+1]
         neigh_x = get_neigh(face_x)
